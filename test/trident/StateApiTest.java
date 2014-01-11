@@ -17,9 +17,9 @@ import storm.trident.testing.MemoryMapState;
 import storm.trident.tuple.TridentTuple;
 
 public class StateApiTest {
-	private static final String Field_Sentence 	= "Field_Sentence";
-	private static final String Field_Word 		= "Field_Word";
-	private static final String Field_Count 	= "Field_Count";
+	private static final String Field_Sentence      = "Field_Sentence";
+	private static final String Field_Word          = "Field_Word";
+	private static final String Field_Count         = "Field_Count";
 	
 	public static void main(String[] args) {
 		System.out.println("\n〓〓〓〓〓〓〓〓〓   开始 〓〓〓〓〓〓〓〓\n");	
@@ -38,7 +38,7 @@ public class StateApiTest {
 				.groupBy(new Fields(Field_Word))
 				.persistentAggregate(new MemoryMapState.Factory(), new Count(), new Fields(Field_Count))
 				.parallelismHint(6)
-				.newValuesStream()
+				.newValuesStream() // 用一个新的stream将aggregate的结果引出来并打印
 				.each(new Fields(Field_Word, Field_Count), new PrinterFilter());
 		
 		Config config = new Config();
